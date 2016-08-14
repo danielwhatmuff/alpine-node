@@ -1,14 +1,8 @@
 FROM alpine:3.4
 
-# ENV VERSION=v0.10.46 CFLAGS="-D__USE_MISC" NPM_VERSION=2
-# ENV VERSION=v0.12.15 NPM_VERSION=2
-# ENV VERSION=v4.4.7 NPM_VERSION=2
-# ENV VERSION=v5.12.0 NPM_VERSION=3
-ENV VERSION=v6.3.1 NPM_VERSION=3
-
-# For base builds
-# ENV CONFIG_FLAGS="--without-npm" RM_DIRS=/usr/include
-ENV CONFIG_FLAGS="--fully-static --without-npm" DEL_PKGS="libgcc libstdc++" RM_DIRS=/usr/include
+ENV VERSION=v5.12.0 NPM_VERSION=3 CONFIG_FLAGS="--fully-static" RM_DIRS=/usr/include
+GLOBAL_INSTALLS="swagger n"
+DEL_PKGS="libgcc libstdc++ curl make gcc g++ python linux-headers paxctl gnupg"
 
 RUN apk add --no-cache curl make gcc g++ python linux-headers paxctl libgcc libstdc++ gnupg && \
   gpg --keyserver ha.pool.sks-keyservers.net --recv-keys \
@@ -39,7 +33,7 @@ RUN apk add --no-cache curl make gcc g++ python linux-headers paxctl libgcc libs
     npm install -g npm@${NPM_VERSION} && \
     find /usr/lib/node_modules/npm -name test -o -name .bin -type d | xargs rm -rf; \
   fi && \
-  apk del curl make gcc g++ python linux-headers paxctl gnupg ${DEL_PKGS} && \
+  apk del ${DEL_PKGS} && \
   rm -rf /etc/ssl /node-${VERSION}.tar.gz /SHASUMS256.txt.asc /node-${VERSION} ${RM_DIRS} \
     /usr/share/man /tmp/* /var/cache/apk/* /root/.npm /root/.node-gyp /root/.gnupg \
     /usr/lib/node_modules/npm/man /usr/lib/node_modules/npm/doc /usr/lib/node_modules/npm/html
