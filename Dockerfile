@@ -1,8 +1,8 @@
 FROM alpine:3.4
 
 ENV VERSION=v5.12.0 NPM_VERSION=3 CONFIG_FLAGS="--fully-static" RM_DIRS=/usr/include
-GLOBAL_INSTALLS="swagger n"
-DEL_PKGS="libgcc libstdc++ curl make gcc g++ python linux-headers paxctl gnupg"
+ENV GLOBAL_INSTALLS="n"
+ENV DEL_PKGS="libgcc libstdc++ curl make gcc g++ python linux-headers paxctl gnupg"
 
 RUN apk add --no-cache curl make gcc g++ python linux-headers paxctl libgcc libstdc++ gnupg && \
   gpg --keyserver ha.pool.sks-keyservers.net --recv-keys \
