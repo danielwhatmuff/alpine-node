@@ -1,6 +1,6 @@
 FROM alpine:3.4
 
-ENV VERSION=v5.12.0 NPM_VERSION=3 CONFIG_FLAGS="--fully-static" RM_DIRS=/usr/include
+ENV VERSION=v6.5.0 NPM_VERSION=3 CONFIG_FLAGS="--fully-static" RM_DIRS=/usr/include
 ENV GLOBAL_INSTALLS="n"
 ENV DEL_PKGS="libgcc libstdc++ curl make gcc g++ python linux-headers paxctl gnupg"
 
